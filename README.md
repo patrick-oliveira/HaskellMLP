@@ -1,1 +1,1 @@
-# HaskellMLP
+# neuralnetwork
