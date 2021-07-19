@@ -1,1 +1,23 @@
-# Rede Neural em Haskell
+# Multilayer Perceptron em Haskell
+
+obs: Projeto conduzido no contexto da disciplina de Paradigmas de Programação, na UFABC.
+
+# 1. Definição Formal de uma 
+
+Uma MLP (_Multilayer Perceptron_) é uma arquitetura de rede neural de aprendizado profundo do tipo feedforward, construída como uma sequência composições de aplicações parametrizadas por um conjunto de pesos ajustáveis.
+
+Definindo de maneira geral, suponha que a rede possua ![equation](https://latex.codecogs.com/svg.image?L) camadas, onde as camadas ![equation](https://latex.codecogs.com/svg.image?1) e ![equation](https://latex.codecogs.com/svg.image?L) são, respectivamente, as camadas de entrada e saída. Suponha que a camada ![equation](https://latex.codecogs.com/svg.image?l), para ![equation](https://latex.codecogs.com/svg.image?l&space;=&space;1,&space;2,&space;\ldots,&space;L) contém ![equation](https://latex.codecogs.com/svg.image?n_l) neurônios - portanto ![equation](https://latex.codecogs.com/svg.image?n_{1}) é a dimensão dos dados de entrada. Definimos ![equation](https://latex.codecogs.com/svg.image?\mathbf{W}^{[l]}&space;\in&space;\mathbb{R}^{n_{l}&space;\times&space;n_{l-1}}) como a matriz de pesos da camada ![equation](https://latex.codecogs.com/svg.image?l), e ![equation](https://latex.codecogs.com/svg.image?\mathbf{b}^{[l]}&space;\in&space;\mathbb{R}^{n_{l}}) é o vetor de viéses da camada ![equation](https://latex.codecogs.com/svg.image?l). De modo geral, a rede é um mapeamento de ![equation](https://latex.codecogs.com/svg.image?\mathbb{R}^{n_{1}}$&space;em&space;$\mathbb{R}^{n_{L}}). Dado um input ![equation](https://latex.codecogs.com/svg.image?\mathbf{x}&space;\in&space;\mathbb{R}^{n_{1}}), o mapeamento da rede pode ser descrito por
+	
+![equation](https://latex.codecogs.com/svg.image?\mathbf{y}^{[1]}&space;=&space;\mathbf{x}&space;\in&space;\mathbb{R}^{n_1})
+
+![equation](https://latex.codecogs.com/svg.image?\mathbf{y}^{[l]}&space;=&space;\sigma&space;(\mathbf{W}^{[l]}y^{[l-1]}&space;&plus;&space;\mathbf{b}^{[l]})&space;\in&space;\mathbb{R}^{n_{l}})
+	
+Caso se tenha um conjunto de dados de ![equation](https://latex.codecogs.com/svg.image?N) amostras em ![equation](https://latex.codecogs.com/svg.image?\mathbb{R}^{n_1}), ![equation](https://latex.codecogs.com/svg.image?\{\mathbf{x}^{\{i\}}\}_{i=1}^{N}), com valores objetivo ![equation](https://latex.codecogs.com/svg.image?\{\mathbf{\overline{y}}(x^{\{i\}})\}_{i=1}^{N}$&space;em&space;$\mathbb{R}^{n_{L}}), pode-se definir uma função de custo parametrizada pelos pesos adaptativos da rede, digamos ![equation](https://latex.codecogs.com/svg.image?\mathbb{L}(\mathbf{W})), e assim, o problema de aprendizado dos melhores parâmetros para a rede é identificado com o problema de minimizar o custo ![equation](https://latex.codecogs.com/svg.image?\mathbb{L}(\mathbf{W})) em relação a ![equation](https://latex.codecogs.com/svg.image?\mathbf{W}). Porém, devido à composição de funções não-lineares ao longo das camadas da rede, a função de custo pode se tornar não-convexa, perdendo a garantia de ótimos globais ou soluções analíticas, e para o treinamento de RNAs passa-se a utilizar métodos de otimização iterativos baseados no operador gradiente, que é capaz de alcançar mínimos locais -- ainda assim, muitas vezes suficientes para um dado problema. 
+	
+Um dos métodos de ajuste dos pesos da rede é denominado _Gradiente Descendente_, em que se aplica iterativamente a correção dos pesos na direção do gradiente da função de custo, i.e.
+	
+![equation](https://latex.codecogs.com/svg.image?\mathbf{W}_{i&plus;1}&space;\rightarrow&space;\mathbf{W}_i&space;-&space;\eta&space;\nabla\mathbb{L}&space;(\mathbf{W}_i))
+	
+onde ![equation](https://latex.codecogs.com/svg.image?\eta&space;\in&space;\mathbb{R}) é a \textit{taxa de aprendizado} e ![equation](https://latex.codecogs.com/svg.image?\nabla) é o operador gradiente.  Quando se tem um número de pesos ajustáveis e de amostras muito grande, o cálculo do gradiente se torna demasiadamente custoso e uma alternativa passa a ser o método de _Gradiente Descendente Estocástico_, em que o ajuste pode ser feito em ![equation](https://latex.codecogs.com/svg.image?N) etapas, onde em cada uma delas uma amostra é selecionada aleatoriamente, sem reposição, para o cálculo do custo e ajuste dos pesos.
+	
+O cálculo do gradiente pode encontrar dificuldades quando a função de custo ou as funções de ativação das camadas intermediárias são difíceis de se derivar. Uma solução é utilizar um algoritmo de _gradiente automático_ (Autograd), que calcula o gradiente de qualquer função em um ponto a partir da decomposição da função em operações elementares compostas e a aplicação da regra da cadeia.
