@@ -2,7 +2,7 @@
 
 obs: Projeto conduzido no contexto da disciplina de Paradigmas de Programação, na UFABC.
 
-# 1. Definição Formal de uma 
+# 1. Definição formal de um Multilayer Perceptron 
 
 Uma MLP (_Multilayer Perceptron_) é uma arquitetura de rede neural de aprendizado profundo do tipo feedforward, construída como uma sequência composições de aplicações parametrizadas por um conjunto de pesos ajustáveis.
 
