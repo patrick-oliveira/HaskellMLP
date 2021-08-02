@@ -1,6 +1,6 @@
 # Multilayer Perceptron em Haskell
 
-obs: Projeto conduzido no contexto da disciplina de Paradigmas de Programação, na UFABC.
+__Obs:__ Projeto conduzido no contexto da disciplina de Paradigmas de Programação, na UFABC.
 
 # 1. Definição formal de um Multilayer Perceptron 
 
